@@ -10,6 +10,7 @@ jobs:
       matrix:
         python:
           - '3.11'
+          - '3.12'
           # - 'pypy-3.7-v7.3.5'
         arch:
           - 'x86'
@@ -19,9 +20,10 @@ jobs:
             arch: x86
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           architecture: ${{ matrix.arch }}
       - name: Install dependencies
         run: python run.py deps
@@ -48,7 +50,7 @@ jobs:
 
       - name: Cache Python
         id: cache-python
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/AppData/Local/Python${{ matrix.python }}-${{ matrix.arch }}
           key: windows-2019-python-${{ matrix.python }}-${{ matrix.arch }}
@@ -71,11 +73,13 @@ jobs:
       matrix:
         python:
           - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           architecture: x64
       - name: Install dependencies
         run: python run.py deps
@@ -97,11 +101,13 @@ jobs:
         python:
           - '3.7'
           - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           architecture: x64
       - name: Install dependencies
         run: python run.py deps
@@ -131,7 +137,7 @@ jobs:
 
       - name: Check pyenv
         id: check-pyenv
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pyenv
           key: macos-11-${{ matrix.python }}-pyenv
@@ -159,11 +165,13 @@ jobs:
         python:
           - '3.6'
           - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           architecture: x64
       - name: Install OpenSSL 3.0
         run: brew install openssl@3
@@ -184,12 +192,14 @@ jobs:
           - '3.9'
           - '3.10'
           - '3.11'
+          - '3.12'
           - 'pypy-3.7-v7.3.5'
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
+          allow-prereleases: true
           architecture: x64
       - name: Install dependencies
         run: python run.py deps
